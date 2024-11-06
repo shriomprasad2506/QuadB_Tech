@@ -84,6 +84,7 @@ app.get('/tickers', async (req, res) => {
         console.log("Data fetched successfully")
         res.json(result.rows);
     } catch (error) {
+        console.log(error)
         res.status(500).send('Error occurred while fetching data from database');
     }
 });
