@@ -1,0 +1,65 @@
+.loader {
+    width: 120px;
+    height: 120px;
+    border: 16px solid #ddd;
+    border-bottom-color: #3dc6c1;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 2s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+input[type=checkbox]{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 60px; /* Width adjusted to 60px */
+    height: 34px; /* Height adjusted to 34px */
+    display: block;
+    border-radius: 100px;
+    position: relative;
+    border: 1px solid grey;
+}
+
+label:after {
+    content: '';
+    position: absolute;
+    top: 5px; /* Add space from the top */
+    left: 5px; /* Initial position on the left */
+    width: 24px; /* Adjusted width to fit inside the 60px container */
+    height: 24px; /* Adjusted height to fit inside the 34px container */
+    background: #3dc6c1;
+    border-radius: 50%; /* Circle shape */
+    transition: 0.3s;
+}
+
+input:checked + label:after {
+    left: calc(100% - 5px); /* Moves the circle to the right when checked */
+    transform: translateX(-100%);
+}
+
+label:active:after {
+    width: 30px; /* Optional: increase width on active (when clicked) */
+}
+
+.buybtc{
+    margin-left: 10px;
+}
+
