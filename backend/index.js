@@ -11,13 +11,44 @@ const cors = require('cors');
 app.use(cors());
 
 
+const { Pool } = require('pg');
+
 const pool = new Pool({
-    host: process.env.PG_HOST,
-    port: process.env.PG_PORT,
-    database: process.env.PG_DATABASE,
-    user: process.env.PG_USER,
-    password: process.env.PG_PASSWORD
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
+
+pool.connect()
+    .then(() => console.log('Connected to PostgreSQL'))
+    .catch(err => console.error('Error connecting to PostgreSQL:', err.stack));
+
+
+const createTableIfNotExists = async () => {
+    const client = await pool.connect();
+    try {
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS tickers (
+                id SERIAL PRIMARY KEY,
+                name VARCHAR(255),
+                last FLOAT,
+                buy FLOAT,
+                sell FLOAT,
+                volume FLOAT,
+                base_unit VARCHAR(50)
+            );
+        `);
+    } catch (error) {
+        console.error('Error creating table:', error);
+    } finally {
+        client.release();
+    }
+};
+
+createTableIfNotExists();
+
+
 
 
 const fetchTop10Tickers = async () => {
@@ -37,7 +68,7 @@ const fetchTop10Tickers = async () => {
         return top10Tickers;
     } catch (error) {
         console.error('Error fetching data from WazirX:', error.message);
-        throw error; 
+        throw error;
     }
 };
 
