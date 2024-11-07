@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
 import { FaTelegramPlane } from "react-icons/fa";
 import Timer from "./Timer"
+import HODLINFO_ICON from '../assets/HODLINFO_ICON.png';
 
 export default function Header() {
     const [isDarkMode, setIsDarkMode] = useState(true);
@@ -27,7 +28,7 @@ export default function Header() {
     }, []);
     return (
         <div className="header">
-            <img src="/HODLINFO_ICON.png" className="header-img" />
+            <img src={HODLINFO_ICON} className="header-img" />
             <div style={{ display: "flex", gap: '20px' }}>
                 <div className="dropdown">
                     <select className="first">
